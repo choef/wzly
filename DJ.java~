@@ -1,0 +1,88 @@
+/**
+ * This class creates a new DJ object, which holds that DJ's playlists from 
+ * each show in a semester.
+ * @author Gabriela Lanza and Cassandra Hoef
+ */
+
+import java.util.*;
+import java.io.*;
+
+public class DJ{
+
+    //instance variables
+    /**
+     * A String representing a user's name for logging into the system.
+     */
+    private String userName;
+    /**
+     * A LinkedList of playlists that will contain the user's playlists from 
+     * the semester.
+     */
+    private LinkedList<Playlist> showHistory;
+    /**
+     * A playlist that contains the most current playlist that the DJ has
+     * played or the one they are currently playing
+     */
+    public Playlist current;
+
+    //constructor
+    /**
+     * Creates a new DJ that is a user in the logging system. The DJ will contain
+     * the user's playlists and their username.
+     */
+    public DJ(String user){
+
+	userName = user; 
+	showHistory = new LinkedList<Playlist>();
+	current = null;
+
+	    }
+
+
+    //instance methods
+    /**
+     * This method will print all of the songs in the Playlist out to an HTML file which
+     * will be displayed on the WZLY website. 
+     */
+    public void  printLatestPlaylist(){
+
+	try{
+
+	    Playlist toWrite = showHistory.getLast();
+
+	    FileWriter writer = new FileWriter(userName+".txt");
+	    writer.write(toWrite.toString());
+	    writer.close();
+
+	}catch(Exception e){
+
+	    System.out.println("Error: "+e);
+
+	}
+
+    }
+    /**
+     * Called in the GUI to add a new playlist, sets current to the new playlist and
+     *  adds Playlist to the DJs showHistory
+     *
+     * @param date String representing the date of their show
+     */
+    public void addPlaylist(String date){
+
+	current = new Playlist(date);
+	showHistory.add(current);
+
+    }
+    /**
+     * Returns a String representing the DJ's username
+     *
+     * @return Returns a String containing the DJ's username
+     */
+    public String toString(){
+
+	return userName+ "\n" +current;
+
+    }
+
+
+}

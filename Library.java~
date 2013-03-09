@@ -1,0 +1,184 @@
+/**
+ * This class contains all the album objects which are currently contained 
+ * in HR. It handles operations such as adding and removing albums, as well 
+ * as incrementing the play count when an album is played.
+ *
+ * @author Gabriela Lanza and Cassandra Hoef
+ */
+import java.util.*;
+
+public class Library{
+
+    //instance variables
+    /**
+     * A vector which holds all the albums in the library. The album's spot 
+     * in the vector corresponds to its ID number.
+     */
+    private Vector<Album> library;
+    /**
+     * Keeps track of the current ID number, which indicates which spot a 
+     * new album should be inserted into the vector and which is assigned
+     * as that album's ID number
+     */
+    private int currentID;
+    /**
+     * Keeps track of the week number for compiling the charts
+     */
+    private int weekNum;
+
+    //constructor
+    /**
+     * Creates a new Library object. Initializes the vector containing the 
+     * albums.
+     */
+    public Library(){
+
+	library = new Vector<Album>();
+	currentID = 1;
+	weekNum = 1;
+
+    }
+    
+
+    //instance methods
+
+    /**
+     * Creates a new album object and sets its ID number to be the next 
+     * ID number in the series.
+     * 
+     * @param artist A string representing the name of the artist
+     * @param title A string representing the title of the album
+     */
+    public int addAlbum(String artist, String title){
+
+	Album newAlbum = new Album(artist, title, currentID);
+	library.add(newAlbum);
+	currentID++;
+	return newAlbum.idNum;
+
+    }
+    /**
+     * Add albums to the library for testing and demonstration purposes
+     *
+     */
+    public void addTestAlbums(){
+	addAlbum("The Beatles", "Abbey Road");
+	addAlbum("The Rolling Stones", "Sticky Fingers");
+	addAlbum("Led Zeppelin", "In Through the Out Door");
+	addAlbum("Pink Floyd", "The Wall");
+	addAlbum("The Who", "Quadrophenia");
+	addTestPlays();
+       
+    }
+    /**
+     * Adds plays to albums in the library for testing and demonstration
+     * purposes
+     */
+    public void addTestPlays(){
+
+	library.get(0).numPlays = 1;
+	library.get(1).numPlays = 3;
+	library.get(2).numPlays = 6;
+	library.get(3).numPlays = 4;
+
+    }
+
+    /**
+     * Returns a string representation of each of the albums contained in
+     * the library.
+     *
+     * @return String all albums
+     */ 
+    public String toString(){
+
+	StringBuilder s = new StringBuilder();
+	for(int i = 0; i<currentID-1; i++){
+	    Album current = library.get(i);
+	    s.append(current.toString());
+	}
+
+	return s.toString();
+
+    }
+
+    /**
+     * Increments the play count by one for the requested album
+     * 
+     * @param ID the ID number of the album requested
+     */
+    public void addPlay(int ID){
+	library.get(ID-1).numPlays++; 
+
+
+    }
+
+    /**
+     * Returns a library vector object
+     *
+     * @return library A Vector that contains albums in HR
+     */
+    public Vector<Album> getLibrary(){
+
+	return library;
+
+    }
+
+    /**
+     * Empties the library of all albums
+     * Should only be called by MD at the very end of the semester
+     * when HR is irrelevant
+     */
+    public void clear(){
+
+	library = new Vector<Album>();
+	currentID = 1;
+	weekNum = 1;
+
+    }
+    /**
+     * Iterates through all albums in the Library and sets their number of
+     * plays to zero so the week can start over fresh without re-entering the 
+     * albums
+     */
+    public void newWeek(){
+
+	for(int i = 0; i<currentID-1; i++){
+
+	    library.get(i).numPlays = 0;
+
+	}
+
+	weekNum++;
+
+    }
+
+    /**
+     * This method puts all of the library entries into a MaxHeap and creates
+     * a new Chart, which causes the heap to turn into a LinkedList of 30
+     * albums in the Charts class. 
+     *
+     * @return Chart contains 30 albums in order from most plays to least
+     */
+    public Charts compileCharts(){
+
+	MaxHeap<Album> albumHeap = new MaxHeap<Album>();
+
+	for(int i = 0; i<currentID-1; i++){
+	
+	    PQueueEntry<Album> newEntry = 
+		new PQueueEntry<Album>(library.get(i).numPlays, 
+				       library.get(i));
+	    albumHeap.insert(newEntry);
+
+	}
+
+	Charts c = new Charts(albumHeap, weekNum);
+	System.out.println(c);
+	return c;
+
+    }
+
+
+ 
+
+}

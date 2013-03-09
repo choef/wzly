@@ -1,0 +1,49 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class Run_WZLY {
+
+    /**
+     * This class runs the entire program. It will construct the three panels
+     * Required to make our program function. 
+     *
+     * @author Gabriela Lanza and Cassandra Hoef
+     *
+     */
+
+    
+	
+
+    public static void createAndShowGUI(){
+	
+	JFrame frame = new JFrame("WZLY Music Log");
+	
+	frame.setSize(790, 500);
+
+	//Specify that the close button exits application.
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	WZLY zly = new WZLY ();
+	zly.init();
+
+	frame.add(zly, BorderLayout.CENTER);
+	frame.setVisible(true);
+	//Container contentPane = frame.getContentPane();
+	//contentPane.add(WZLY.login);
+
+    }
+
+   
+
+
+    public static void main(String [] args){
+	//Schedule a job for hte event-dispatching thread:
+	//creating and showing this application's GUI.
+	javax.swing.SwingUtilities.invokeLater(new Runnable() {
+		public void run() {
+		    createAndShowGUI();
+		}
+	    });
+    }
+
+}

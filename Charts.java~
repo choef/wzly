@@ -1,0 +1,101 @@
+/**
+ * Creates a chart object which will be compiled each week. Charts contain 
+ * the 30 albums with the highest play counts for that week.
+ *
+ * @author Gabriela Lanza and Cassandra Hoef
+ */
+//DONE CODING AND JAVA DOC COMMENTING FOR PRESENTATION
+import java.util.*;
+import java.io.*;
+
+public class Charts{
+
+    //instance variables
+    /**
+     * A max heap of albums which the library array is sorted into, and then 
+     * the top 30 albums are able to be printed from.
+     */
+    private LinkedList<Album> chart;
+    /**
+     * A string which represents the date range of the compiled charts
+     */
+    private int weekNumber;
+
+    //constructor
+    /**
+     * Takes the library in MaxHeap form as a parameter, then calls a method to
+     * put the top 30 albums into a LinkedList.This LinkedList is a Chart
+     * object and Chart objects are differentiated by week numbers.
+     *
+     * @param heap A max heap sorted by the number of plays of each album
+     * @param weekNumber The week number the charts are created
+     */
+    public Charts(MaxHeap<Album> heap, int weekNum){
+
+	chart = makeCharts(heap);
+	weekNumber = weekNum;
+
+
+    }
+
+    //instance methods
+    /**
+     * Takes the top 30 albums
+     * from the top of the heap and puts them into the LinkedList of 
+     * albums, which is then returned.
+     *
+     * @param library A MaxHeap of albums from the library
+     * @return A LinkedList containing the top 30 albums for that week
+     */
+    public LinkedList<Album> makeCharts(MaxHeap<Album> library){
+
+	LinkedList<Album> list = new LinkedList<Album>();
+
+	int n = library.size();
+
+	for( int i = 0; i<n && i<30; i++){
+
+	    list.add(library.delete().value());
+
+	}
+
+	return list;
+
+    }
+    /**
+     * Produces a String representation of a Chart
+     * @return String representation of 30 top albums for a week
+     */
+    public String toString(){
+
+	String s = "Charts for week "+weekNumber+":\n";
+       
+	for(int i = 0; i<chart.size(); i++){
+	    int n = i+1;
+	    s = s + n + ". "+ chart.get(i).toString();
+	}
+
+	return s;
+
+    }
+
+    /**
+     * Prints out the charts for the week to an text file
+     */
+    public void printCharts(){
+
+	try{
+
+	    FileWriter writer = new FileWriter("week"+weekNumber+".txt");
+	    writer.write(chart.toString());
+	    writer.close();
+
+	}catch(Exception e){
+
+	    System.out.println("Error: "+e);
+
+	}
+
+    }
+
+}

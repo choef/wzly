@@ -1,0 +1,85 @@
+/**
+ * This class creates a new playlist for each DJ's show. The songs stored in
+ * the playlist are strings.
+ *
+ * @author Gabriela Lanza and Cassandra Hoef
+ */
+
+import java.util.*;
+
+public class Playlist{
+
+    //instance variables
+    /** 
+     *The string date functions as a sort of title for the playlist so a user
+     *can tell the playlists apart and sort by date.
+     */
+    private String date;
+
+    /**
+     * The LinkedList of Strings, playlist, stores all of the songs a user
+     * plays on a given date. 
+     */
+    public LinkedList<String> playlist;
+
+    //constructor
+    /**
+     * Creates a Playlist object that holds all of the songs an user plays for 
+     * each date.
+     * 
+     * @param date A string representing the date of the playlist.
+     */
+    public Playlist(String playDate){
+
+	date = playDate;
+	playlist = new LinkedList<String>();
+
+    }
+
+
+    //instance methods
+    /** 
+     *Adds a String song to the playlist. The song will be input into the  GUI
+     *by a user in two parts, song and artist, and will be concatonated. 
+     *
+     * @param song A String representing a song title and artist
+     */
+    public void addSong(String song){
+	
+	playlist.add(song);
+
+    }
+    /**
+     * Returns the last song of the playlist to the GUI so the user doesn't
+     * forget and enter the last song twice.
+     *
+     * @return Returns the last song added to the playlist
+     */
+    public String getLastSong(){
+
+	return playlist.getLast(); 
+    }
+
+    /**
+     * Prints a list of all songs in the LinkedList
+     *
+     * @return Returns a String of songs
+     */
+    public String toString(){
+
+	StringBuilder s = new StringBuilder();
+
+	s.append("Playlist for "+date+"\n");
+
+	for( int i = 0; i<playlist.size(); i++ ){
+
+	    s.append(playlist.get(i));
+	    s.append("\n");
+
+	}
+
+	return s.toString();
+
+    }
+
+}

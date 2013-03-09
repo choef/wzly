@@ -1,0 +1,94 @@
+/**
+ * This class stores all of the DJs which have shows. It also allows the 
+ * admin to add and remove DJs from the list. Also controls the login for 
+ * DJs.
+ * 
+ * @author Gabriela Lanza and Cassandra Hoef
+ */
+
+//THIS CLASS IS COMPLETELY DONE BEING CODED/JAVA DOC COMMENTED FOR PRESENTATION
+import java.util.*;
+
+public class Accounts{
+
+    //instance variables
+    /**
+     * A Hashtable stores all of the DJ objects and their playlists over the
+     * course of a semester.
+     */
+
+    private Hashtable<String, DJ> accounts;
+
+
+    //constructor
+    /**
+     * Creates a new hashtable
+     */
+    public Accounts(){
+
+	accounts = new Hashtable<String, DJ>(300);
+
+    }
+
+
+    //instance methods
+
+    /**
+     * Take input username from GUI and check to see if it is in the 
+     * Hashtable. If it is, launch next GUI with the returned DJ object as a 
+     * parameter. If it's not, create a new DJ object with newDJ method. 
+     *
+     * @param userName A string of the DJ's username
+     *
+     * @return Returns a DJ object
+     */
+    public DJ login(String userName){
+	//done!
+	if(accounts.get(userName)== null){
+	    DJ newb = new DJ(userName);
+	    accounts.put(userName, newb);
+	    return newb;
+	}else{
+	   return accounts.get(userName);
+	    
+	}
+    }
+    
+    /**
+     * Create a new Hashtable to replace the full one at the end of the semester
+     * This method can only be called by the MDs.
+     */
+    public void clear(){
+
+	accounts = new Hashtable<String, DJ>(300);
+
+    }
+
+    /**
+     *This method returns a String version of an accounts object, consisting of 
+     *All of the usernames of the DJs
+     * @return A string representation of an Account object
+     */
+    public String toString(){
+
+	return accounts.toString();
+
+    }
+
+    /* TESTING
+
+    public static void main(String[] args){
+
+	Accounts a = new Accounts();
+
+	a.login("choef");
+	a.login("glanza");
+	a.login("choef");
+
+	System.out.println(a);
+    
+
+    }
+    */
+
+}

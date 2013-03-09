@@ -1,0 +1,87 @@
+/**
+ * This class contains the GUI which runs the MD operations, such as adding 
+ * an album to the library, compiling charts, and clearing out the library 
+ * and DJ accounts at the end of the semester.
+ * 
+ * @author Gabriela Lanza and Cassandra Hoef
+ */
+
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class MDGUI extends JApplet implements ActionListener{
+
+    private JLabel addAlbumHeaderLabel, nameLabel, artistLabel;
+    private JLabel IDLabel, idNumberLabel;
+    private JLabel chartsHeaderLabel, confirmationLabel;
+
+    private JTextField albumName, albumArtist;
+
+    public JButton compileChartsButton;
+    public JButton newWeekButton;
+    public JButton clearButton;
+    public JButton endButton;
+
+    /**
+     * Creates all of the components of the GUI
+     */
+    public MDGUI(){
+	//text fields
+	albumName = new JTextField("", 20);
+	albumArtist = new JTextField("", 20);
+	albumName.addActionListener(this);
+	albumArtist.addActionListener(this);
+
+	//buttons
+	compileChartsButton = new JButton("Compile and Show Charts");
+	newWeekButton = new JButton("Start New Week");
+	clearButton = new JButton("Clear Semester");
+	endButton = new JButton("Log out");
+	compileChartsButton.addActionListener(this);
+	newWeekButton.addActionListener(this);
+	clearButton.addActionListener(this);	
+	endButton.addActionListener(this);
+
+    }
+    //instance methods
+
+    /**
+     * Constructs Labels for MDGUI
+     */
+    public void makeLabels(){
+	addAlbumHeaderLabel = new JLabel("Add Album:");
+	nameLabel = new JLabel("Name: ");
+	artistLabel = new JLabel("Artist:");
+	IDLabel = new JLabel("This album's ID number is: "); //add code for num
+	idNumberLabel = new JLabel("ID Number: ");
+	chartsHeaderLabel = new JLabel("Charts:");
+	confirmationLabel = new JLabel("Charts have been compiled");
+    }
+    /**
+     * Adds the components to the GUI and sets the layout
+     */
+    public void init(){
+
+    }
+
+    /**
+     * Performs the desired functions when the buttons are pressed. The 
+     * compile charts button calls the method compiling the current week's 
+     * charts in the Chart class. The Start New Week button writes the charts 
+     * out to an HTML file and sets the play count of each album in the 
+     * library back to zero. The clear semester charts button clears out the 
+     * library and all of  the DJs' accounts.
+     *
+     * @param event The button pressed
+     */
+    public void actionPerformed(ActionEvent event){
+
+
+
+    }
+
+
+
+}
